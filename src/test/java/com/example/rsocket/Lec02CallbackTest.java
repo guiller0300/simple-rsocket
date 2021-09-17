@@ -13,6 +13,7 @@ import io.rsocket.RSocket;
 import io.rsocket.SocketAcceptor;
 import io.rsocket.core.RSocketConnector;
 import io.rsocket.transport.netty.client.TcpClientTransport;
+import io.rsocket.transport.netty.client.WebsocketClientTransport;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -25,7 +26,7 @@ public class Lec02CallbackTest {
 	public void setup() {
 		this.rSocket = RSocketConnector.create()
 				.acceptor(SocketAcceptor.with(new CallbackService()))
-				.connect(TcpClientTransport.create("localhost", 6565))
+				.connect(WebsocketClientTransport.create("localhost", 6565))
 				.block();
 	}
 	

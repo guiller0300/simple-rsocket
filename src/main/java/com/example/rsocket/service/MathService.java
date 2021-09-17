@@ -37,7 +37,6 @@ public class MathService implements RSocket {
 		return Flux.range(1,10)
 				.map(i -> i * requestDto.getInput())
 				.map(i -> new ResponseDto(requestDto.getInput(), i))
-				.delayElements(Duration.ofSeconds(1))
 				.doOnNext(System.out::println)
 				.doFinally(s -> System.out.println(s))
 				.map(ObjectUtil::toPayload);
@@ -48,6 +47,7 @@ public class MathService implements RSocket {
 				.map(p -> ObjectUtil.toObject(p, RequestDto.class))
 				.map(RequestDto::getInput)
 				.map(i -> new ChartResponseDto(i, (i * i) + 1))
+				.doOnNext(System.out::println)
 				.map(ObjectUtil::toPayload);
 	}
 }

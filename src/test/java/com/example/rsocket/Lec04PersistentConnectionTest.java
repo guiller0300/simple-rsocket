@@ -11,6 +11,7 @@ import io.rsocket.RSocket;
 import io.rsocket.core.RSocketClient;
 import io.rsocket.core.RSocketConnector;
 import io.rsocket.transport.netty.client.TcpClientTransport;
+import io.rsocket.transport.netty.client.WebsocketClientTransport;
 import io.rsocket.util.DefaultPayload;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -25,7 +26,8 @@ private RSocketClient rSocketClient;
 	@BeforeAll
 	public void setup() {
 		Mono<RSocket> socketMono = RSocketConnector.create()
-				.connect(TcpClientTransport.create("localhost", 6565))
+				.setupPayload(DefaultPayload.create("Use"))
+				.connect(WebsocketClientTransport.create("localhost", 6565))
 				.doOnNext(r -> System.out.println("going to connect"));
 		
 		this.rSocketClient = RSocketClient.from(socketMono);

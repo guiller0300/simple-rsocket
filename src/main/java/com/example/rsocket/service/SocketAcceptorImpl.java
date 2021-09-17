@@ -10,13 +10,21 @@ public class SocketAcceptorImpl implements SocketAcceptor {
 	@Override
 	public Mono<RSocket> accept(ConnectionSetupPayload setup, RSocket rSocket) {
 		System.out.println("SocketAcceptorImpl-accept method");
-		return Mono.fromCallable(MathService::new);
+		if(isValidClient(setup.getDataUtf8()))
+			return Mono.just(new MathService());
+		else 
+			return Mono.just(new FreeService());
+		//return Mono.fromCallable(MathService::new);
 		
 		//Backpressure
 		//return Mono.fromCallable(() -> new BatchJobService(rSocket));
 		
 		//PersistenceConnection
 		//return Mono.fromCallable(FastProducerService::new);
+	}
+	
+	private boolean isValidClient(String credentials) {
+		return "user:password".equals(credentials);
 	}
 
 }

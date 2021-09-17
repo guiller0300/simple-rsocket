@@ -16,6 +16,7 @@ import io.rsocket.Payload;
 import io.rsocket.RSocket;
 import io.rsocket.core.RSocketConnector;
 import io.rsocket.transport.netty.client.TcpClientTransport;
+import io.rsocket.transport.netty.client.WebsocketClientTransport;
 import io.rsocket.util.DefaultPayload;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -29,7 +30,7 @@ class Lec01RSocketTest {
 	@BeforeAll
 	public void setup() {
 		this.rSocket = RSocketConnector.create()
-				.connect(TcpClientTransport.create("localhost", 6565))
+				.connect(WebsocketClientTransport.create("localhost", 6565))
 				.block();
 	}
 	

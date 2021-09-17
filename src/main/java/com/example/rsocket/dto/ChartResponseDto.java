@@ -33,7 +33,7 @@ public class ChartResponseDto {
 	
 	@Override
 	public String toString() {
-		String graphFormat = getFormat(this.input);
+		String graphFormat = getFormat(this.output);
 		return String.format(graphFormat, this.input, 'X');
 	}
 
